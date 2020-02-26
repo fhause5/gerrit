@@ -1,0 +1,12 @@
+## Check for Jira issue in footer
+if [ "$(git -c pager.show=false show --no-patch --pretty=format:%B $NEWREV | egrep -q '^(PROJECT-[0-9]+ [a-zA-Z0-9 ]+: .+)'; echo $?)" -gt "0" ]; then
+    echo -e "Reason: \nCommit $NEWREV Aborting commit. Your commit message should follow pattern: \
+    \n===================\n \
+     Examples \n \
+     any test \n \
+     any test \n \
+     any test \
+\n=================== \n"
+    echo "Use git commit --amend to add missing footer, then try again. Uploader - $UPLOADER"
+    exit 1
+fi
